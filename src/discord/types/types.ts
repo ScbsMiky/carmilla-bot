@@ -1,4 +1,4 @@
-import type { Component } from "../interactions/interaction";
+import type { Component } from "./interaction";
 
 export interface Clan {
 
@@ -53,13 +53,13 @@ export interface Message {
   edited_timestamp: string;
 
   type: number;
-  flags: number;
   channel_type: number;
-
+  
   tts: boolean;
   pinned: boolean;
   mention_everyone: boolean;
-
+  
+  flags: MessageFlags;
   author: User;
   
   member?: Member;
@@ -312,18 +312,100 @@ export interface Attachment {
   ephemeral?: boolean;
 };
 
+export interface Channel {
+  id: string;
+  name: string;
+  last_message_id: string;
+  
+  type: ChannelType;
+  position: number;
+  rate_limit_per_user: number;
+  
+  nsfw: boolean;
+  permission_overwrites: [ ];
+  
+  topic?: string;
+  guild_id?: string;
+  parent_id?: string;
+};
+
+export interface ChannelPayload {
+  name?: string;
+  parent_id?: string;
+  
+  position?: number;
+  
+  type?: ChannelType;
+};
+
+export interface RolePayload {
+  name: string;
+  permissions: string;
+  colors: {
+    primary_color: string;
+    tertiary_color: string;
+    secondary_color: string;
+  };
+  hoist: boolean;
+  icon: string;
+  unicode_emoji: string;
+  mentionable: string;
+};
+
+export interface EmojiPayload {
+  name: string;
+  imageData: string;
+  roles?: string[ ];
+};
+
+export interface StickerPayload {
+  name: string;
+  tags: string;
+  file: string;
+  description: string;
+};
+
 export enum ChannelType {
-  // GUILD_TEXT	0	a text channel within a server
-  // DM	1	a direct message between users
-  // GUILD_VOICE	2	a voice channel within a server
-  // GROUP_DM	3	a direct message between multiple users
-  // GUILD_CATEGORY	4	an organizational category that contains up to 50 channels
-  // GUILD_ANNOUNCEMENT	5	a channel that users can follow and crosspost into their own server (formerly news channels)
-  // ANNOUNCEMENT_THREAD	10	a temporary sub-channel within a GUILD_ANNOUNCEMENT channel
-  // PUBLIC_THREAD	11	a temporary sub-channel within a GUILD_TEXT or GUILD_FORUM channel
-  // PRIVATE_THREAD	12	a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission
-  // GUILD_STAGE_VOICE	13	a voice channel for hosting events with an audience
-  // GUILD_DIRECTORY	14	the channel in a hub containing the listed servers
-  // GUILD_FORUM	15	Channel that can only contain threads
-  // GUILD_MEDIA	16
+  DM = 1,
+  GroupDM = 3,
+  
+  GuildText = 0,
+  GuildVoice = 2,
+  GuildForum = 15,
+  GuildMedia = 16,
+  GuildCategory = 4,
+  GuildDirectory = 14,
+  GuildStageVoice = 13,
+  GuildAnnouncement = 5,
+  
+  PublicThread = 11,
+  PrivateThread = 12,
+  AnnouncementThread = 10
+};
+
+export enum MessageFlags {
+  Crossposted = 0,
+  IsCrosspost = 1,
+  SuppressEmbeds = 2,
+  SourceMessageDeleted = 3,
+  Urgent = 4,
+  HasThread = 5,
+  Ephemeral = 6,
+  Loading = 7,
+  FailedToMentionSomeRolesInThread = 8,
+  SuppressNotifications = 12,
+  IsVoiceMessage = 13,
+  HasSnapshot = 14
+};
+
+export enum RoleFlags {
+
+};
+
+export enum ChannelFlags {
+
+};
+
+export enum AttachmentFlags {
+
 };

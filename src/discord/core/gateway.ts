@@ -1,9 +1,9 @@
 import { WebSocket } from "ws";
 
-import { GatewayTypes } from "./types/gateway";
-import type { NotOptional } from "../types/util";
+import { GatewayTypes } from "../types/gateway";
+import type { NotOptional } from "../../types/util";
 
-import EventListener from "../libs/listener";
+import EventListener from "../../libs/listener";
 import { collectorsMap } from "./collectors";
 
 export default class DiscordGateway {

@@ -1,4 +1,4 @@
-import type { Interaction } from "../interactions/interaction";
+import type { Interaction } from "./interaction";
 import type { Message, MessageReferrence, Reaction, Role, } from "./types";
 
 export namespace GatewayTypes {

@@ -1,6 +1,6 @@
-import EventListener from "../libs/listener";
-import { randomInt } from "../libs/random";
-import type { Message, Reaction } from "./types/types";
+import EventListener from "../../libs/listener";
+import { randomInt } from "../../libs/random";
+import type { Message, Reaction } from "../types/types";
 
 export interface CollectorOptions<T extends any> {
   type: keyof typeof collectorsMap;
@@ -48,6 +48,20 @@ export function createCollector<T extends any = any>(options: CollectorOptions<T
   });
 
   return listener;
+};
+
+export async function awaitCollector<T extends any = any>(options: Omit<CollectorOptions<T>, "type" | "max">) {
+  // @ts-ignore
+  options.max = 1;
+
+  return new Promise<T>((resolve, reject) => {
+    const collector = createMessageCollector(options as any);
+    
+    collector.on("collect", resolve as any);
+
+    collector.on("dispose", reject);
+    collector.on("timeout", ( ) => reject("Timeout"));
+  });
 };
 
 export async function awaitMessage(options: Omit<CollectorOptions<Message>, "type" | "max">) {

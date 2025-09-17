@@ -1,4 +1,4 @@
-import type { ChannelType, Member, Message } from "../types/types";
+import type { ChannelType, Member, Message } from "./types";
 
 export interface Interaction {
   id: string;
